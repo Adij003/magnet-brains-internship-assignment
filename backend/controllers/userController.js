@@ -91,6 +91,89 @@ const getMe = asyncHandler( async (req, res) => {
   res.status(200).json(user)
 })
 
+// @desc Get all users
+// @route GET /api/users
+// @access Private (Admin only)
+const getAllUsers = asyncHandler(async (req, res) => {
+  
+  if (!req.user || !req.user.isAdmin) {
+      res.status(403);
+      throw new Error("Not authorized, only Admin can view all users");
+  }
+
+  
+  const users = await User.find().select("-password");
+
+  res.status(200).json(users);
+});
+
+// @desc Update a user (Admin only)
+// @route PUT /api/users/:id
+// @access Private (Admin only)
+const updateUser = asyncHandler(async (req, res) => {
+  // Check if the logged-in user is an admin
+  if (!req.user || !req.user.isAdmin) {
+      res.status(403);
+      throw new Error("Not authorized, only Admin can update user details");
+  }
+
+  // Find the user by ID
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+      res.status(404);
+      throw new Error("User not found");
+  }
+
+  
+  user.name = req.body.name || user.name;
+  user.email = req.body.email || user.email;
+  user.isAdmin = req.body.isAdmin !== undefined ? req.body.isAdmin : user.isAdmin;
+
+  
+  const updatedUser = await user.save();
+
+  res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+  });
+});
+
+// @desc    Get a single user by ID
+// @route   GET /api/users/:id
+// @access  Private (Admin only)
+const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select('-password'); // Exclude password from response
+
+  if (!user) {
+      res.status(404);
+      throw new Error('User not found');
+  }
+
+  res.status(200).json(user);
+});
+
+
+// @desc    Delete a user by ID (Admin only)
+// @route   DELETE /api/users/:id
+// @access  Private (Admin only)
+const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+      res.status(404);
+      throw new Error('User not found');
+  }
+
+  await user.deleteOne(); // Delete the user
+
+  res.status(200).json({ message: 'User deleted successfully' });
+});
+
+
+
 // Generate token
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -102,4 +185,8 @@ module.exports = {
     registerUser,
     loginUser,
     getMe,
+    getAllUsers,
+    updateUser,
+    getUserById,
+    deleteUser
 }
