@@ -78,16 +78,7 @@ function UserIndividualTask() {
     return <h3>Loading task details...</h3>;
   }
 
-  const onDelete = (e) => {
-    e.preventDefault()
-    const confirmDelete = window.confirm("Are you sure you want to delete this task?");
-    if (!confirmDelete) return;  
-    dispatch(deleteTask(id));
-    toast.success("Task Deleted successfully!");
-    navigate("/tasks"); 
 
-
-  }
 
   return (
     <>

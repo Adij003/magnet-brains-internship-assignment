@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers, reset as resetUsers } from "../features/auth/authSlice";
-import { createTask, reset as resetTasks } from "../features/tasks/taskSlice";
 import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
 import { Link, useNavigate } from 'react-router-dom'
