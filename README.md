@@ -10,3 +10,5 @@ MONGO_URI = mongodb+srv://jainadi1717:3wuuVBaxq5CqZZsp@cluster0.pknhx.mongodb.ne
 JWT_SECRET = abc123
 
 Mongo_sec_code = 3wuuVBaxq5CqZZsp
+
+npm run dev

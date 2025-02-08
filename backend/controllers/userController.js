@@ -11,12 +11,12 @@ const User = require('../models/userModel')
 const registerUser = asyncHandler( async (req, res) => {
     const {name, email, password} = req.body
     
-    const userAdmin = await User.findById(req.user.id);
+    // const userAdmin = await User.findById(req.user.id);
 
-    if (!userAdmin.isAdmin) {
-      res.status(403);
-      throw new Error('Not authorized, only Admin can register a user');
-  }
+  //   if (!userAdmin.isAdmin) {
+  //     res.status(403);
+  //     throw new Error('Not authorized, only Admin can register a user');
+  // }
 
 
     if( !name || !email || !password){
@@ -36,7 +36,7 @@ const registerUser = asyncHandler( async (req, res) => {
 
     // hashing password here
     const salt = await bcrypt.genSalt(10)
-  const hashedPassword = await bcrypt.hash(password, salt)
+  const hashedPassword = await bcrypt.hash(password, salt) 
 
       // Create user
   const user = await User.create({

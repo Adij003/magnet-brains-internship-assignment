@@ -3,7 +3,7 @@ const router = express.Router()
 const { registerUser, loginUser, getMe, getAllUsers, updateUser, getUserById, deleteUser} = require('../controllers/userController')
 const {protect} = require('../middleware/authMiddleware')
 
-router.post('/', protect, registerUser)
+router.post('/', registerUser)
 
 router.post('/login', loginUser)
 
