@@ -17,7 +17,7 @@ function Register() {
 
   const { name, email, password, password2, isAdmin } = formData;
 
-  const { user, isError, isLoading, isSuccess, message} = useSelector(  (state) => state.auth)
+  const { user, isError, isLoading, isSuccess, message, isRegistered} = useSelector(  (state) => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
  
@@ -27,8 +27,11 @@ function Register() {
         toast.error(message)
     }
 
+    
+
     // redirect when logged in
-    if(isSuccess || user){
+    if(isRegistered ){
+      toast.success('User Registered')
         navigate('/')
     }
 
@@ -68,17 +71,18 @@ const onSubmit = (e) => {
         dispatch(register(userData))
       }
 
+
   }
 
-//   if(isLoading){
-//     return <Spinner/>
-//   }
+  if(isLoading){
+    return <Spinner/>
+  }
 
   return (
     <>
       <section className="heading">
         <h1>
-          <FaUser /> Register {user}
+          <FaUser /> Register 
         </h1>
         <p> a new User/Admin</p>
       </section>

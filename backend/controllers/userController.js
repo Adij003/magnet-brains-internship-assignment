@@ -69,6 +69,7 @@ const loginUser = asyncHandler( async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        isAdmin: user.isAdmin,
         token: generateToken(user._id),
       })
     } else {
@@ -93,7 +94,7 @@ const getMe = asyncHandler( async (req, res) => {
 
 // @desc Get all users
 // @route GET /api/users
-// @access Private (Admin only)
+// @access Private (Admin only) 
 const getAllUsers = asyncHandler(async (req, res) => {
   
   if (!req.user || !req.user.isAdmin) {

@@ -118,9 +118,6 @@ h3 {
 .form-group {
   margin-bottom: 10px;
 }
-.form-group-product{
-  display: none;
-}
 
 .form-group input,
 .form-group textarea,
@@ -131,10 +128,6 @@ h3 {
   border-radius: 5px;
   margin-bottom: 10px;
   font-family: inherit;
-}
-.form-group-submit-btn{
-  
-  padding-bottom: 20px;
 }
 
 .form-group label {
@@ -158,7 +151,24 @@ h3 {
   align-items: center;
   justify-content: center;
 }
-
+.btn-del {
+  padding: 10px 20px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  background: red;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  appearance: button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lilspacebelow{
+  margin-bottom: 20px;
+}
 .btn svg {
   margin-right: 8px;
 }
@@ -192,6 +202,23 @@ h3 {
   transform: scale(0.98);
 }
 
+.allUser{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.allUser-main{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  
+}
+.lilpad{
+  background: #ebe2e2;
+  margin: 5px;
+  border-radius: 15px;
+}
+
 .ticket-created {
   border: 1px solid #e6e6e6;
   border-radius: 5px;
@@ -215,165 +242,71 @@ h3 {
   font-size: 1.3rem;
 }
 
-.tickets {
-  width: 100%;
-}
-
-.ticket-headings,
-.ticket {
-  display: grid;
-  grid-template-columns: 1fr 2fr 0.2fr; /* Added space for arrow */
-  gap: 50px; /* Increased spacing between columns */
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  background: #f4f4f4;
-  padding: 10px 15px;
-  border-radius: 5px;
-  text-align: center; /* Keep text alignment */
-  cursor: pointer; /* Indicate clickability */
-  transition: background 0.3s ease; /* Smooth transition */
-}
-
-.ticket:hover {
-  background: #e0e0e0; /* Light hover effect */
-}
-
-.ticket-headings {
-  font-weight: bold;
-  background: #ddd; 
-  grid-template-columns: 1fr 2fr 0.2fr; /* Adjusted for arrow */
-  gap: 10px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 10px;
-  border-radius: 5px;
-}
-
-.ticket div {
-  word-wrap: break-word; /* Prevents text from overflowing */
-}
-
-/* Answer Box Styling */
-.answer-box {
-  background: #f9f9f9; /* Light background for contrast */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-/* Ensure answer text is visible */
-.answer-text {
-  width: 100%;
-  text-align: center;
-  font-size: 16px;
-  color: #333; /* Darker text for better visibility */
-  word-wrap: break-word;
-}
-
-.unanswered {
-  color: #d9534f; /* Reddish color to indicate pending status */
-  font-weight: bold;
-  text-align: center;
-} 
-
-/* Toggle Icon Styling */
-.toggle-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-}
-.button-update {
-  background-color: #4CAF50;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
-  border-radius: 3px;
-  margin-top: 10px;
-  font-size: 14px;
-}
-/* .for-update-ans{
-  display: flex;
-
-} */
-
-.button-update:hover {
-  background-color: #45a049;
-}
-
-
-.ticket-headings {
-  font-weight: 700;
-}
-
-.answer-edit {
-  width: 100%;
+.task-container {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Space between input and buttons */
+  gap: 10px;
 }
 
-.textarea-answer {
+.task-headings {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  background: black;
+  color: white;
+  padding: 12px 15px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.task {
+  display: flex;
+  flex-direction: column;
+  /* grid-template-columns: repeat(7, 1fr); */
+  gap: 20px;
+  background: #e6d9d9;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-align: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  margin-bottom: 20px;
+}
+.first-box{
+  display: flex;
+  justify-content: space-between;
   width: 100%;
-  height: 100px;
+  padding: 0 20px;
+}
+.second-box{
+  display: flex;
+  width: 100%;
+  padding: 0 20px;
+}
+.lilgap{
+  margin-left: 5px;
+}
+.lilflex{
+  display: flex;
+}
+
+.task:hover {
+  background: #e0e0e0;
+}
+
+
+
+.task-details {
+  background: #f1f1f1;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #ddd;
-  font-size: 14px;
-  resize: vertical; /* Allow vertical resize */
+  margin-top: 5px;
 }
 
-.submit-btn-ans,
-.cancel-button-ans {
-  padding: 8px 15px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  background-color: #007bff; /* Button color */
-  color: white;
-  transition: background-color 0.3s;
-}
-
-.submit-btn-ans:hover,
-.cancel-button-ans:hover {
-  background-color: #0056b3; /* Darker blue for hover */
-}
-
-.submit-btn-ans:disabled,
-.cancel-button-ans:disabled {
-  background-color: #d6d6d6;
-  cursor: not-allowed;
-}
-
-.cancel-button-ans {
-  background-color: #d9534f; /* Red color for cancel */
-}
-
-.cancel-button-ans:hover {
-  background-color: #c9302c; /* Darker red on hover */
-}
-
-/* Ensure the Answer button is clearly visible */
-.button-ans {
-  padding: 12px 20px; /* Increased padding for a larger button */
-  font-size: 16px; /* Increased font size */
-  background-color: #28a745; /* Green color for the button */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: center;
-  transition: background-color 0.3s ease, transform 0.2s ease; 
-}
-
-.button-ans:hover {
-  background-color: #218838; /* Darker green on hover */
-}
 
 .status {
   background-color: #333;

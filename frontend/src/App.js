@@ -9,6 +9,9 @@ import Header from './components/Header';
 import AllUsers from './pages/AllUsers';
 import PrivateRoute from "./components/PrivateRoute";
 import NewTask from './pages/NewTask';
+import AllTasks from './pages/AllTasks';
+import TaskDetails from './pages/TaskDetails';
+import UserIndividualTask from './pages/UserIndividualTask';
 
 
 
@@ -25,7 +28,15 @@ function App() {
         <Route path="/new-task" element={<PrivateRoute />}>
               <Route path="/new-task" element={<NewTask />} />
             </Route>
-
+            <Route path="/tasks" element={<PrivateRoute />}>
+              <Route path="/tasks" element={<AllTasks />} />
+            </Route>
+            <Route path="/tasks/:id" element={<PrivateRoute />}>
+              <Route path="/tasks/:id" element={<TaskDetails />} />
+            </Route>
+            <Route path="/tasks-user/:id" element={<PrivateRoute />}>
+              <Route path="/tasks-user/:id" element={<UserIndividualTask />} />
+            </Route>
 
       </Routes>
     </div>

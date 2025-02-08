@@ -7,6 +7,7 @@ const initialState = {
     isError: false,
     isSuccess: false,
     isLoading: false,
+    isRegistered: false,
     message: ''
 }
 
@@ -81,6 +82,7 @@ export const authSlice = createSlice({
             state.allUsers = []
             state.isError = false
             state.isSuccess = false
+            state.isRegistered = false
             state.message = ''
             
         }
@@ -93,6 +95,7 @@ export const authSlice = createSlice({
         .addCase(register.fulfilled, (state, action) => {
             state.isLoading = false
             state.isSuccess = true
+            state.isRegistered = true; 
             state.user = action.payload
         })
         .addCase(register.rejected, (state, action) => {
