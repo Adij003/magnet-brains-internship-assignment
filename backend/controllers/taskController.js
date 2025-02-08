@@ -12,7 +12,7 @@ const Task = require('../models/taskModel')
 const createTask = asyncHandler(async (req, res) => {
     const { title, description, dueDate, priority, assignedUser } = req.body;
     
-    const userAdmin = await User.findById(req.user.id);
+    const userAdmin = await User.findById(req.user.id); 
    
     // if (!userAdmin.isAdmin) {
     //       res.status(403);
@@ -46,19 +46,36 @@ const createTask = asyncHandler(async (req, res) => {
 // @route GET /tasks
 // @access > private, admin can view all taks, user can only view tasks assigned to the user
 const getUserTasks = asyncHandler(async (req, res) => {
-
-     let tasks;
+    let tasks;
+    const page = parseInt(req.query.page) || 1; // Default to page 1
+    const limit = parseInt(req.query.limit) || 5; // Default to 5 tasks per page
+    const skip = (page - 1) * limit; // Calculate how many tasks to skip
 
     if (req.user.isAdmin) {
-        // If user is an admin, fetch all tasks
-        tasks = await Task.find();
+        // Admin can fetch all tasks
+        tasks = await Task.find()
+            .sort({ priority: -1 }) // Sort by priority (highest first)
+            .skip(skip)
+            .limit(limit);
     } else {
-        // If user is a normal user we fetch only their assigned tasks 
-        tasks = await Task.find({ assignedUser: req.user.id });
+        // Normal user fetches only their assigned tasks
+        tasks = await Task.find({ assignedUser: req.user.id })
+            .sort({ priority: -1 })
+            .skip(skip)
+            .limit(limit);
     }
 
-    res.status(200).json(tasks);
+    const totalTasks = req.user.isAdmin 
+        ? await Task.countDocuments() 
+        : await Task.countDocuments({ assignedUser: req.user.id });
+
+    res.status(200).json({
+        tasks,
+        totalPages: Math.ceil(totalTasks / limit),
+        currentPage: page,
+    });
 });
+
 
 // @desc Get an individual task
 // @route GET /api/tasks/:id

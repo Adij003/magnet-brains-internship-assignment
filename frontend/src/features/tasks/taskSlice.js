@@ -30,10 +30,10 @@ export const createTask = createAsyncThunk(
 
 export const getAllTasks = createAsyncThunk(
   "tasks/getTasks",
-  async (_, thunkAPI) => {
+  async ({ page = 1, limit = 5 }, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      return await taskService.getAllTasks(token);
+      return await taskService.getAllTasks(token, page, limit);
     } catch (error) {
       const message =
         (error.response &&
@@ -123,7 +123,9 @@ export const taskSlice = createSlice({
       .addCase(getAllTasks.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.tasks = action.payload; // Store fetched tasks
+        state.tasks = action.payload.tasks || [];
+        state.totalPages = action.payload.totalPages; // Store total pages for pagination
+      state.currentPage = action.payload.currentPage; // Store current page
       })
       .addCase(getAllTasks.rejected, (state, action) => {
         state.isLoading = false;

@@ -14,14 +14,14 @@ const createTask = async (taskData, token) => {
     return response.data
 }
 
-const getAllTasks = async (token) => {
+const getAllTasks = async (token, page = 1, limit = 5) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     };
     
-    const response = await axios.get(API_URL, config)
+    const response = await axios.get(`${API_URL}?page=${page}&limit=${limit}`, config)
 
     return response.data
 }
