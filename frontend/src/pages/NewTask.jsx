@@ -38,7 +38,7 @@ function NewTask() {
     }
     if (isSuccess) {
       toast.success("Task created successfully!");
-      navigate("/");
+      navigate("/tasks");
     }
   }, [isTasksError, isUsersError, isSuccess, tasksMessage, usersMessage, navigate]);
 
