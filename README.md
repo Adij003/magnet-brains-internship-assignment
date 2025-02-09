@@ -18,9 +18,13 @@ To run the project: npm run dev
 Tasks
 
    POST ('/api/tasks/') Create Task
+   
    GET ('/api/tasks/') Get all the tasks
+   
    GET ('/api/tasks/:id') Get a particular task
+   
    PUT ('/api/tasks/:id') Update a task
+   
    Delete ('/api/tasks/:id') Delete the task
 
 User   
@@ -37,7 +41,7 @@ User
 
  GET ('/api/users/allUsers/:id') Get user by Id
 
- delete('/api/users/allUsers/:id') Deletes a particular user
+ DELETE ('/api/users/allUsers/:id') Deletes a particular user
 
 
 
