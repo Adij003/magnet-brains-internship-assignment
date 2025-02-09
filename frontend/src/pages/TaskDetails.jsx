@@ -28,7 +28,7 @@ function TaskDetails() {
     dispatch(getAllUsers());
   }, [dispatch, id]);
 
-  // Sync state with fetched task data
+  // Sync state with fetched task data 
   useEffect(() => {
     if (task) {
       setTitle(task.title || "");

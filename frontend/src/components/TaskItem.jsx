@@ -19,7 +19,6 @@ function TaskItem({ task }) {
 
   if (!task) return null; 
 
-  
   const getPriorityColor = (priority) => {
     switch (priority) {
       case "high":
@@ -33,13 +32,16 @@ function TaskItem({ task }) {
     }
   };
 
-  
   const assignedUserName = allUsers?.find((u) => u._id === task.assignedUser)?.name || "Unknown User";
 
   return (
     <div
       className="task"
-      style={{ borderLeft: `20px solid ${getPriorityColor(task.priority)}` }}
+      style={{ 
+        borderLeft: `20px solid ${getPriorityColor(task.priority)}`,
+        backgroundColor: task.status === "completed" ? "#00ab41" : "#f1eeee", 
+        color: task.status === "completed" ? "white" : "black"
+      }}
       onClick={() =>
         navigate(isAdmin ? `/tasks/${task._id}` : `/tasks-user/${task._id}`)
       }
@@ -65,7 +67,6 @@ function TaskItem({ task }) {
           <h4>Assigned To:</h4>
           {isAdmin && <div className="lilgap">{assignedUserName}</div>}
           {!isAdmin && <div className="lilgap">Me ({user.name})</div>}
-
         </div>
       </div>
 

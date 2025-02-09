@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllUsers, reset as resetUsers } from "../features/auth/authSlice";
 import { getTaskById, updateTask, deleteTask } from "../features/tasks/taskSlice";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -12,7 +11,7 @@ function UserIndividualTask() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user, allUsers, isLoading: isUsersLoading, isError: isUsersError, message: usersMessage } = useSelector((state) => state.auth);
+  const { user, isLoading: isUsersLoading, isError: isUsersError, message: usersMessage } = useSelector((state) => state.auth);
   const { task, isLoading: isTasksLoading, isError: isTasksError, isSuccess, message: tasksMessage } = useSelector((state) => state.tasks);
   
 
@@ -25,9 +24,16 @@ function UserIndividualTask() {
 
   // Fetch task and users when component mounts
   useEffect(() => {
-    dispatch(getTaskById(id));
-    // dispatch(getAllUsers());
-  }, [dispatch, id]);
+    if (user) {
+      dispatch(getTaskById(id));
+    }
+  }, [dispatch, id, user]);
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   // Sync state with fetched task data
   useEffect(() => {
@@ -46,9 +52,9 @@ function UserIndividualTask() {
     if (isTasksError) {
       toast.error(tasksMessage);
     }
-    if (isUsersError) {
-      toast.error(usersMessage);
-    }
+    // if (isUsersError) {
+    //   toast.error(usersMessage);
+    // }
   }, [isTasksError, isUsersError, tasksMessage, usersMessage]);
 
   // Handle form submission
@@ -74,7 +80,7 @@ function UserIndividualTask() {
     return <Spinner />;
   }
 
-  if (!task) {
+  if (!task || !user) {
     return <h3>Loading task details...</h3>;
   }
 

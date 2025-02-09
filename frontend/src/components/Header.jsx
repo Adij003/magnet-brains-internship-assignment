@@ -20,7 +20,9 @@ function Header() {
   return (
     <header className="header">
       <div className="logo">
-        <Link to="/">Task Management Admin</Link>
+        { isAdmin && <Link to="/">Task Management Admin</Link>}
+        { !isAdmin && <Link to="/">Task Management</Link>}
+
       </div>
       <ul>
         {user ? (

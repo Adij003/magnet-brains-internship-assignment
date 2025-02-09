@@ -18,6 +18,11 @@ function AllUsers() {
       dispatch(resetUsers());
     };
   }, [dispatch]);
+
+  if(isUsersLoading){
+    return <Spinner/>
+  }
+
   return (
     <div>
       <div className="allUser">

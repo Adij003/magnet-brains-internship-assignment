@@ -14,10 +14,10 @@ const createTask = asyncHandler(async (req, res) => {
     
     const userAdmin = await User.findById(req.user.id); 
    
-    // if (!userAdmin.isAdmin) {
-    //       res.status(403);
-    //       throw new Error('Not authorized, only Admin can create a task');
-    //   }
+    if (!userAdmin.isAdmin) {
+          res.status(403);
+          throw new Error('Not authorized, only Admin can create a task');
+      }
       
       if(!title || !description || !dueDate || !priority ){
         res.status(400)
@@ -54,7 +54,7 @@ const getUserTasks = asyncHandler(async (req, res) => {
     if (req.user.isAdmin) {
         // Admin can fetch all tasks
         tasks = await Task.find()
-            .sort({ priority: -1 }) // Sort by priority (highest first)
+            .sort({ priority: 1 }) // Sort by priority (highest first)
             .skip(skip)
             .limit(limit);
     } else {
