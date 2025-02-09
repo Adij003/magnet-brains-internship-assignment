@@ -43,5 +43,8 @@ User
 
  DELETE ('/api/users/allUsers/:id') Deletes a particular user
 
+ ### Frontend 
+ I've used react redux to mange the states globally, and have made auth reducer and task reducer which handels the create, login, and all the functionality 
+
 
 
